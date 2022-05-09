@@ -1,4 +1,4 @@
-package com.example.oddleweatherapi;
+package com.example.oddleweatherapi.repo;
 
 import com.example.oddleweatherapi.model.Weather;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -9,5 +9,6 @@ import java.util.Optional;
 @Repository
 public interface WeatherRepository extends JpaRepository<Weather, Integer> {
     Optional<Weather> findWeatherByCityId(Integer cityId);
+//    Optional<Weather> findWeatherByCityName(String cityName);
 
 }

@@ -3,6 +3,7 @@ package com.example.oddleweatherapi.controller;
 import com.example.oddleweatherapi.model.Weather;
 import com.example.oddleweatherapi.service.WeatherService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,9 +20,17 @@ public class WeatherController {
     }
 
     @GetMapping
-    public List<Weather> getWeather() {
-        return weatherService.getWeather();
+    public ResponseEntity<List<Weather>> getAllWeather() {
+        return ResponseEntity.ok().body(weatherService.getWeather());
     }
+
+    @GetMapping(path = "{cityId}")
+    public ResponseEntity<Weather> getOneWeatherByCityId(@PathVariable("cityId") Integer cityId){
+        return ResponseEntity.ok().body(weatherService.getOneWeather(cityId));
+    }
+
+    //dto FE -> weather dto,  POJO obj -> weather
+    //backend process dto -> Weather -> req -> database
 
     @PostMapping
     public void registerNewWeather(@RequestBody Weather weather){

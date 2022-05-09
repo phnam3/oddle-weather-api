@@ -1,7 +1,9 @@
 package com.example.oddleweatherapi.service;
 
-import com.example.oddleweatherapi.WeatherRepository;
+import com.example.oddleweatherapi.repo.CityRepository;
+import com.example.oddleweatherapi.repo.WeatherRepository;
 import com.example.oddleweatherapi.model.Weather;
+import com.example.oddleweatherapi.repo.WeatherTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +23,14 @@ public class WeatherService {
     }
     public List<Weather> getWeather(){
         return weatherRepository.findAll();
+    }
+
+    public Weather getOneWeather(Integer id){
+        boolean exists = weatherRepository.existsById(id);
+        if(!exists){
+            throw new IllegalStateException("City Id  " + id + " does not exist");
+        }
+        return weatherRepository.findWeatherByCityId(id).get();
     }
 
     public void addNewWeather(Weather weather) {
