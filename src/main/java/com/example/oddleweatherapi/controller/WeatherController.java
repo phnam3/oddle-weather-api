@@ -1,5 +1,7 @@
 package com.example.oddleweatherapi.controller;
 
+import com.example.oddleweatherapi.dto.WeatherConverter;
+import com.example.oddleweatherapi.dto.WeatherDTO;
 import com.example.oddleweatherapi.model.Weather;
 import com.example.oddleweatherapi.service.WeatherService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,25 +15,27 @@ import java.util.List;
 public class WeatherController {
 
     private final WeatherService weatherService;
+    private final WeatherConverter weatherConverter;
 
     @Autowired
-    public WeatherController(WeatherService weatherService) {
+    public WeatherController(WeatherService weatherService, WeatherConverter weatherConverter) {
         this.weatherService = weatherService;
+        this.weatherConverter = weatherConverter;
     }
 
     @GetMapping
-    public ResponseEntity<List<Weather>> getAllWeather() {
-        return ResponseEntity.ok().body(weatherService.getWeather());
+    public ResponseEntity<List<WeatherDTO>> getAllWeather() {
+        List<Weather> findAll = weatherService.getWeather();
+        return ResponseEntity.ok().body(weatherConverter.entityToDTO(findAll));
     }
 
     @GetMapping(path = "{cityId}")
-    public ResponseEntity<Weather> getOneWeatherByCityId(@PathVariable("cityId") Integer cityId){
-        return ResponseEntity.ok().body(weatherService.getOneWeather(cityId));
+    public ResponseEntity<WeatherDTO> getOneWeatherByCityId(@PathVariable("cityId") Integer cityId){
+        Weather findOne = weatherService.getOneWeather(cityId);
+        return ResponseEntity.ok().body(weatherConverter.entityToDTO(findOne));
     }
 
-    //dto FE -> weather dto,  POJO obj -> weather
-    //backend process dto -> Weather -> req -> database
-
+    //To be integrated with DTO converter, cannot now because of findWeatherByCityId
     @PostMapping
     public void registerNewWeather(@RequestBody Weather weather){
         weatherService.addNewWeather(weather);

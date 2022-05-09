@@ -1,5 +1,6 @@
 package com.example.oddleweatherapi.service;
 
+import com.example.oddleweatherapi.dto.WeatherConverter;
 import com.example.oddleweatherapi.repo.CityRepository;
 import com.example.oddleweatherapi.repo.WeatherRepository;
 import com.example.oddleweatherapi.model.Weather;

@@ -26,9 +26,9 @@ public class Weather {
     private String tempMax;
     @Column(name = "TODAY_DATE")
     private String todayDate;
-    @Column(name = "WEATHER_TYPE_ID", nullable = false)
+    @Column(name = "WEATHER_TYPE_ID")
     private Integer weatherTypeId;
-    @Column(name = "CITY_ID", nullable = false)
+    @Column(name = "CITY_ID")
     private Integer cityId;
 
 //    @OneToOne(cascade = CascadeType.ALL)
