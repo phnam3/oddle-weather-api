@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -37,7 +38,7 @@ public class WeatherController {
     }
 
     @PostMapping
-    public void registerNewWeather(@RequestBody @Validated WeatherDTO weatherDTO){
+    public void registerNewWeather(@RequestBody @Valid WeatherDTO weatherDTO){
         Weather weather = weatherConverter.DTOtoEntity(weatherDTO);
         weatherService.addNewWeather(weather);
     }
@@ -58,5 +59,11 @@ public class WeatherController {
 //                              @RequestParam Integer cityId){
 //        weatherService.updateWeather(id, temp, tempMin, tempMax, todayDate, weatherTypeId, cityId);
 //    }
+
+    @PutMapping
+    public void updateWeather(@RequestBody @Valid WeatherDTO weatherDTO){
+        Weather weather = weatherConverter.DTOtoEntity(weatherDTO);
+        weatherService.updateWeather(weather);
+    }
 
 }

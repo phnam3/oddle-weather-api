@@ -30,16 +30,16 @@ public class WeatherService {
         boolean exists = weatherRepository.findWeatherByCityId(id).isPresent();
         //TODO: controller advice
         if(!exists){
-            throw new IllegalStateException("City Id  " + id + " does not exist");
+            throw new NoSuchElementException("City Id  " + id + " does not exist");
         }
         return weatherRepository.findWeatherByCityId(id).get();
     }
 
     public void addNewWeather(Weather weather) {
         System.out.println(weather);
-        Optional<Weather> weatherOptional = weatherRepository.findWeatherByCityId(weather.getCity().getId());
-        if(weatherOptional.isPresent()){
-            throw new IllegalStateException("City Already Existed");
+        boolean exists = weatherRepository.findWeatherByCityId(weather.getCity().getId()).isPresent();
+        if(exists){
+            throw new NoSuchElementException("City Already Existed");
         }
         weatherRepository.save(weather);
     }
@@ -47,36 +47,51 @@ public class WeatherService {
     public void deleteWeather(Integer id){
         boolean exists = weatherRepository.existsById(id);
         if(!exists){
-            throw new IllegalStateException("Weather Id  " + id + " does not exist");
+            throw new NoSuchElementException("Weather Id  " + id + " does not exist");
         }
         weatherRepository.deleteById(id);
     }
 
     @Transactional
-    public void updateWeather(Integer id, String temp, String tempMin,
-                              String tempMax, String todayDate, Integer weatherTypeId, Integer cityId){
-        Weather weather = weatherRepository.findById(id)
-                .orElseThrow(() -> new IllegalStateException("Weather ID " + id + " not exist"));
-
-        if(temp != null && temp.length() > 0 &&
-        !Objects.equals(weather.getTemp(), temp)){
-            weather.setTemp(temp);
+    public void updateWeather(Weather weather){
+        Weather temp = weatherRepository.findById(weather.getId()).get();
+        boolean exists = weatherRepository.existsById(weather.getId());
+        if(!exists){
+            throw new NoSuchElementException("Weather Id  " + weather.getId() + " does not exist");
         }
+        temp.setTemp(weather.getTemp());
+        temp.setTempMin(weather.getTempMin());
+        temp.setTempMax(weather.getTempMax());
+        temp.setTodayDate(weather.getTodayDate());
+        temp.setCity(weather.getCity());
+        temp.setWeatherType(weather.getWeatherType());
+    }
 
-        if(tempMin != null && tempMin.length() > 0 &&
-        !Objects.equals(weather.getTempMin(), tempMin)){
-            weather.setTempMin(tempMin);
-        }
-
-        if(tempMax != null && tempMax.length() > 0 &&
-        !Objects.equals(weather.getTempMax(), tempMax)){
-            weather.setTempMax(tempMax);
-        }
-
-        if(todayDate != null && todayDate.length() > 0 &&
-                !Objects.equals(weather.getTodayDate(), todayDate)){
-            weather.setTodayDate(todayDate);
-        }
+//    @Transactional
+//    public void updateWeather(Integer id, String temp, String tempMin,
+//                              String tempMax, String todayDate, Integer weatherTypeId, Integer cityId){
+//        Weather weather = weatherRepository.findById(id)
+//                .orElseThrow(() -> new IllegalStateException("Weather ID " + id + " not exist"));
+//
+//        if(temp != null && temp.length() > 0 &&
+//        !Objects.equals(weather.getTemp(), temp)){
+//            weather.setTemp(temp);
+//        }
+//
+//        if(tempMin != null && tempMin.length() > 0 &&
+//        !Objects.equals(weather.getTempMin(), tempMin)){
+//            weather.setTempMin(tempMin);
+//        }
+//
+//        if(tempMax != null && tempMax.length() > 0 &&
+//        !Objects.equals(weather.getTempMax(), tempMax)){
+//            weather.setTempMax(tempMax);
+//        }
+//
+//        if(todayDate != null && todayDate.length() > 0 &&
+//                !Objects.equals(weather.getTodayDate(), todayDate)){
+//            weather.setTodayDate(todayDate);
+//        }
 
 //        if(weatherTypeId != null && weatherTypeId > 0 &&
 //                !Objects.equals(weather.getWeatherTypeId(), weatherTypeId)){
@@ -92,5 +107,5 @@ public class WeatherService {
 //            }
 //            weather.setCityId(cityId);
 //        }
-    }
+
 }

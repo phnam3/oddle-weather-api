@@ -3,6 +3,7 @@ package com.example.oddleweatherapi.model;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 @Entity
@@ -19,6 +20,7 @@ public class Weather {
     private Integer id;
 
     @Column(name = "TEMP", nullable = false)
+    @NotBlank
     private String temp;
     @Column(name = "TEMP_MIN")
     private String tempMin;
