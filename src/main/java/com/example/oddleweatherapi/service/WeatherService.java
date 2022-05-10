@@ -35,20 +35,7 @@ public class WeatherService {
         return weatherRepository.findWeatherByCityId(id).get();
     }
 
-    // add today weather to city
-    // city id, weather
-    // city id -> findCityById -> CityDTO/entity
-    // add new weather city_id
-
-    //
-    // weather, city -> added
     public void addNewWeather(Weather weather) {
-//        City city = weatherRepository.findCityByCityId(weather.getCity().getId()).orElse(null);
-//        Optional<Weather> weatherOptional = weatherRepository.findWeatherByCity(city);
-//        if(weatherOptional.isPresent()){
-//            throw new IllegalStateException("City Already Existed");
-//        }
-//        weatherRepository.save(weather);
         System.out.println(weather);
         Optional<Weather> weatherOptional = weatherRepository.findWeatherByCityId(weather.getCity().getId());
         if(weatherOptional.isPresent()){

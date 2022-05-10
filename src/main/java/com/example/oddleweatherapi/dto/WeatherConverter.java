@@ -27,8 +27,8 @@ public class WeatherConverter {
         dto.setTempMax(weather.getTempMax());
         dto.setTempMin(weather.getTempMin());
         dto.setTodayDate(weather.getTodayDate());
-        dto.setCity(weather.getCity().getId());
-        dto.setWeatherType(weather.getWeatherType().getId());
+        dto.setCityName(weather.getCity().getCity());
+        dto.setWeatherName(weather.getWeatherType().getWeatherType());
         return dto;
     }
 

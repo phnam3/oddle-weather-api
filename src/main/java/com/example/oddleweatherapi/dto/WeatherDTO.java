@@ -18,8 +18,8 @@ public class WeatherDTO {
     private String tempMin;
     private String tempMax;
     private String todayDate;
-//    private String weatherType1;
-//    private String city1;
+    private String weatherName;
+    private String cityName;
     private Integer weatherType;
     private Integer city;
 }
