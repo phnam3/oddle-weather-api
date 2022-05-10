@@ -37,7 +37,8 @@ public class WeatherController {
 
     //To be integrated with DTO converter, cannot now because of findWeatherByCityId
     @PostMapping
-    public void registerNewWeather(@RequestBody Weather weather){
+    public void registerNewWeather(@RequestBody WeatherDTO weatherDTO){
+        Weather weather = weatherConverter.DTOtoEntity(weatherDTO);
         weatherService.addNewWeather(weather);
     }
 
@@ -46,15 +47,16 @@ public class WeatherController {
         weatherService.deleteWeather(id);
     }
 
-    @PutMapping(path = "{id}")
-    public void updateWeather(@PathVariable("id") Integer id,
-                              @RequestParam String temp,
-                              @RequestParam(required = false) String tempMin,
-                              @RequestParam(required = false) String tempMax,
-                              @RequestParam(required = false) String todayDate,
-                              @RequestParam Integer weatherTypeId,
-                              @RequestParam Integer cityId){
-        weatherService.updateWeather(id, temp, tempMin, tempMax, todayDate, weatherTypeId, cityId);
-    }
+//    @PutMapping(path = "{id}")
+//    public void updateWeather(@PathVariable("id") Integer id,
+//                              //request body weather dto
+//                              @RequestParam String temp,
+//                              @RequestParam(required = false) String tempMin,
+//                              @RequestParam(required = false) String tempMax,
+//                              @RequestParam(required = false) String todayDate,
+//                              @RequestParam Integer weatherTypeId,
+//                              @RequestParam Integer cityId){
+//        weatherService.updateWeather(id, temp, tempMin, tempMax, todayDate, weatherTypeId, cityId);
+//    }
 
 }

@@ -7,11 +7,14 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class WeatherDTO {
+    //TODO: NotBlank -> Validation String Boot
     private Integer id;
     private String temp;
     private String tempMin;
     private String tempMax;
     private String todayDate;
-//    private String weatherType;
-//    private String city;
+    private String weatherType;
+    private String city;
+//    private Integer weatherType;
+//    private Integer cityId;
 }

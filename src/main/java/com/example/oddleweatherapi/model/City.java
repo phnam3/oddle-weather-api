@@ -1,17 +1,17 @@
 package com.example.oddleweatherapi.model;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
-@Table(name="weather_type")
+@Table(name="city")
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @ToString
 public class City {
     @Id
@@ -22,15 +22,11 @@ public class City {
     @Column(name="city")
     private String city;
 
-//    @OneToOne(mappedBy = "city")
-//    private Weather weather;
+    @OneToMany(mappedBy = "city", cascade = {CascadeType.PERSIST, CascadeType.DETACH,
+            CascadeType.MERGE, CascadeType.REFRESH})
+    private List<Weather> weather;
 
-    public City(Integer id, String city) {
+    public City(Integer id) {
         this.id = id;
-        this.city = city;
-    }
-
-    public City(String city) {
-        this.city = city;
     }
 }

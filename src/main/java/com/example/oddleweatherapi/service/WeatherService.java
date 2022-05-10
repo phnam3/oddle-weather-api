@@ -1,15 +1,15 @@
 package com.example.oddleweatherapi.service;
 
-import com.example.oddleweatherapi.dto.WeatherConverter;
-import com.example.oddleweatherapi.repo.CityRepository;
+import com.example.oddleweatherapi.dto.WeatherDTO;
+import com.example.oddleweatherapi.model.City;
 import com.example.oddleweatherapi.repo.WeatherRepository;
 import com.example.oddleweatherapi.model.Weather;
-import com.example.oddleweatherapi.repo.WeatherTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -28,18 +28,33 @@ public class WeatherService {
 
     public Weather getOneWeather(Integer id){
         boolean exists = weatherRepository.existsById(id);
+
+        //TODO: controller advice
         if(!exists){
             throw new IllegalStateException("City Id  " + id + " does not exist");
         }
         return weatherRepository.findWeatherByCityId(id).get();
     }
 
+    // add today weather to city
+    // city id, weather
+    // city id -> findCityById -> CityDTO/entity
+    // add new weather city_id
+
+    //
+    // weather, city -> added
     public void addNewWeather(Weather weather) {
-        Optional<Weather> weatherOptional = weatherRepository.findWeatherByCityId(weather.getCityId());
-        if(weatherOptional.isPresent()){
-            throw new IllegalStateException("City Already Existed");
-        }
-        weatherRepository.save(weather);
+//        City city = weatherRepository.findCityByCityId(weather.getCity().getId()).orElse(null);
+//        Optional<Weather> weatherOptional = weatherRepository.findWeatherByCity(city);
+//        if(weatherOptional.isPresent()){
+//            throw new IllegalStateException("City Already Existed");
+//        }
+//        weatherRepository.save(weather);
+//        Optional<Weather> weatherOptional = weatherRepository.findWeatherByCity(weather.getCity());
+//        if(weatherOptional.isPresent()){
+//            throw new IllegalStateException("City Already Existed");
+//        }
+//        weatherRepository.save(weather);
     }
 
     public void deleteWeather(Integer id){
@@ -76,19 +91,19 @@ public class WeatherService {
             weather.setTodayDate(todayDate);
         }
 
-        if(weatherTypeId != null && weatherTypeId > 0 &&
-                !Objects.equals(weather.getWeatherTypeId(), weatherTypeId)){
-            weather.setWeatherTypeId(weatherTypeId);
-        }
-
-        if(cityId != null && cityId > 0 &&
-                !Objects.equals(weather.getCityId(), cityId)){
-            weather.setCityId(cityId);
-            Optional<Weather> weatherOptional = weatherRepository.findWeatherByCityId(weather.getCityId());
-            if(weatherOptional.isPresent()){
-                throw new IllegalStateException("City Already Existed");
-            }
-            weather.setCityId(cityId);
-        }
+//        if(weatherTypeId != null && weatherTypeId > 0 &&
+//                !Objects.equals(weather.getWeatherTypeId(), weatherTypeId)){
+//            weather.setWeatherTypeId(weatherTypeId);
+//        }
+//
+//        if(cityId != null && cityId > 0 &&
+//                !Objects.equals(weather.getCityId(), cityId)){
+//            weather.setCityId(cityId);
+//            Optional<Weather> weatherOptional = weatherRepository.findWeatherByCityId(weather.getCityId());
+//            if(weatherOptional.isPresent()){
+//                throw new IllegalStateException("City Already Existed");
+//            }
+//            weather.setCityId(cityId);
+//        }
     }
 }
