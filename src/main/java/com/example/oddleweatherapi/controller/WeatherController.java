@@ -6,6 +6,7 @@ import com.example.oddleweatherapi.model.Weather;
 import com.example.oddleweatherapi.service.WeatherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -35,9 +36,8 @@ public class WeatherController {
         return ResponseEntity.ok().body(weatherConverter.entityToDTO(findOne));
     }
 
-    //To be integrated with DTO converter, cannot now because of findWeatherByCityId
     @PostMapping
-    public void registerNewWeather(@RequestBody WeatherDTO weatherDTO){
+    public void registerNewWeather(@RequestBody @Validated WeatherDTO weatherDTO){
         Weather weather = weatherConverter.DTOtoEntity(weatherDTO);
         weatherService.addNewWeather(weather);
     }

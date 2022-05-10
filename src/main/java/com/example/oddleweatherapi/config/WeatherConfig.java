@@ -23,7 +23,7 @@ public class WeatherConfig {
             Weather weather1 = new Weather("25C", "15C", "30C",
                     "2022-01-01", wt1, c1);
 
-            City c2 = new City(3);
+            City c2 = new City(4);
             WeatherType wt2 = new WeatherType(2);
             Weather weather2 = new Weather("255C", "155C", "305C",
                     "2022-01-01", wt2, c2);

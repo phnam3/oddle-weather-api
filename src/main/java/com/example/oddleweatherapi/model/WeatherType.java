@@ -28,4 +28,7 @@ public class WeatherType {
     public WeatherType(Integer id) {
         this.id = id;
     }
+    public WeatherType(String weatherType){
+        this.weatherType = weatherType;
+    }
 }

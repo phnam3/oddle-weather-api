@@ -27,8 +27,7 @@ public class WeatherService {
     }
 
     public Weather getOneWeather(Integer id){
-        boolean exists = weatherRepository.existsById(id);
-
+        boolean exists = weatherRepository.findWeatherByCityId(id).isPresent();
         //TODO: controller advice
         if(!exists){
             throw new IllegalStateException("City Id  " + id + " does not exist");
@@ -50,11 +49,12 @@ public class WeatherService {
 //            throw new IllegalStateException("City Already Existed");
 //        }
 //        weatherRepository.save(weather);
-//        Optional<Weather> weatherOptional = weatherRepository.findWeatherByCity(weather.getCity());
-//        if(weatherOptional.isPresent()){
-//            throw new IllegalStateException("City Already Existed");
-//        }
-//        weatherRepository.save(weather);
+        System.out.println(weather);
+        Optional<Weather> weatherOptional = weatherRepository.findWeatherByCityId(weather.getCity().getId());
+        if(weatherOptional.isPresent()){
+            throw new IllegalStateException("City Already Existed");
+        }
+        weatherRepository.save(weather);
     }
 
     public void deleteWeather(Integer id){

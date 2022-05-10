@@ -29,4 +29,11 @@ public class City {
     public City(Integer id) {
         this.id = id;
     }
+
+    public Integer getCityIdByName(String name){
+        if(this.city.equals(name)){
+            return this.id;
+        }
+        return -1;
+    }
 }
