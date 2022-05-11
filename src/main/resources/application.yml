@@ -9,6 +9,11 @@ spring:
     show-sql: true
     hibernate:
       ddl-auto: update
+  h2:
+    console:
+      enabled: true
+  liquibase:
+    change-log: classpath:db/changelog/changelog-master.xml
 
 server:
   error:
