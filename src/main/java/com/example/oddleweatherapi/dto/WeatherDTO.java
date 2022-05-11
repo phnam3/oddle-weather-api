@@ -9,7 +9,6 @@ import javax.validation.constraints.NotBlank;
 @AllArgsConstructor
 @NoArgsConstructor
 public class WeatherDTO {
-    //TODO: NotBlank -> Validation String Boot
     private Integer id;
 
     @NotBlank

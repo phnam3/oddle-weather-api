@@ -13,3 +13,14 @@ spring:
 server:
   error:
     include-message: always
+
+logging:
+  level:
+    root: INFO
+    org.springframework.web: DEBUG
+    org.hibernate: ERROR
+  file.path: D:/logs
+  file.name: ${logging.file.path}/weatherLog.log
+
+
+
