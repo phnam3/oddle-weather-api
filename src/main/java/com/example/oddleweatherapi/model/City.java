@@ -20,10 +20,9 @@ public class City {
     private Integer id;
 
     @Column(name="city")
-    private String city;
+    private String cityName;
 
-    @OneToMany(mappedBy = "city", cascade = {CascadeType.PERSIST, CascadeType.DETACH,
-            CascadeType.MERGE, CascadeType.REFRESH})
+    @OneToMany(mappedBy = "city")
     private List<Weather> weather;
 
     public City(Integer id) {

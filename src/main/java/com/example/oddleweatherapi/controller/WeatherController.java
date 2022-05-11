@@ -48,10 +48,10 @@ public class WeatherController {
         weatherService.deleteWeather(id);
     }
 
-    @PutMapping
-    public void updateWeather(@RequestBody @Valid WeatherDTO weatherDTO){
+    @PutMapping(path = "{id}")
+    public void updateWeather(@PathVariable("id") Integer id, @RequestBody @Valid WeatherDTO weatherDTO){
         Weather weather = weatherConverter.DTOtoEntity(weatherDTO);
-        weatherService.updateWeather(weather);
+        weatherService.updateWeather(weather,id);
     }
 
 }

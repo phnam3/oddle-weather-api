@@ -3,7 +3,6 @@ package com.example.oddleweatherapi.dto;
 import com.example.oddleweatherapi.model.City;
 import com.example.oddleweatherapi.model.Weather;
 import com.example.oddleweatherapi.model.WeatherType;
-import com.example.oddleweatherapi.repo.WeatherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -13,12 +12,6 @@ import java.util.stream.Collectors;
 @Component
 public class WeatherConverter {
 
-    private final WeatherRepository weatherRepository;
-
-    @Autowired
-    public WeatherConverter(WeatherRepository weatherRepository) {
-        this.weatherRepository = weatherRepository;
-    }
     public WeatherDTO entityToDTO(Weather weather){
 
         WeatherDTO dto = new WeatherDTO();
@@ -27,8 +20,8 @@ public class WeatherConverter {
         dto.setTempMax(weather.getTempMax());
         dto.setTempMin(weather.getTempMin());
         dto.setTodayDate(weather.getTodayDate());
-        dto.setCityName(weather.getCity().getCity());
-        dto.setWeatherName(weather.getWeatherType().getWeatherType());
+        dto.setCityName(weather.getCity().getCityName());
+        dto.setWeatherName(weather.getWeatherType().getWeatherTypeName());
         return dto;
     }
 
@@ -44,8 +37,8 @@ public class WeatherConverter {
         weather.setTempMax(dto.getTempMax());
         weather.setTempMin(dto.getTempMin());
         weather.setTodayDate(dto.getTodayDate());
-        weather.setCity(new City(dto.getCity()));
-        weather.setWeatherType(new WeatherType(dto.getWeatherType()));
+        weather.setCity(new City(dto.getCityId()));
+        weather.setWeatherType(new WeatherType(dto.getWeatherTypeId()));
         return weather;
     }
 

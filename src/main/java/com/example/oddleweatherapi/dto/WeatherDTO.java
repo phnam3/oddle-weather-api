@@ -20,6 +20,6 @@ public class WeatherDTO {
     private String todayDate;
     private String weatherName;
     private String cityName;
-    private Integer weatherType;
-    private Integer city;
+    private Integer weatherTypeId;
+    private Integer cityId;
 }

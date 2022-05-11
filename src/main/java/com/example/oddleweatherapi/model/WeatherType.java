@@ -19,16 +19,15 @@ public class WeatherType {
     private Integer id;
 
     @Column(name="weatherType")
-    private String weatherType;
+    private String weatherTypeName;
 
-    @OneToMany(mappedBy = "weatherType", cascade = {CascadeType.PERSIST, CascadeType.DETACH,
-            CascadeType.MERGE, CascadeType.REFRESH})
+    @OneToMany(mappedBy = "weatherType")
     private List<Weather> weather;
 
     public WeatherType(Integer id) {
         this.id = id;
     }
     public WeatherType(String weatherType){
-        this.weatherType = weatherType;
+        this.weatherTypeName = weatherType;
     }
 }
