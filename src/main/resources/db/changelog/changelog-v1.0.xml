@@ -10,22 +10,22 @@
 
     <changeSet id="2" author="Fate">
         <insert schemaName="weatherdb" tableName="weather">
-            <column name="TEMP" value="20C"></column>
-            <column name="TEMP_MIN" value="10C"></column>
-            <column name="TEMP_MAX" value="30C"></column>
-            <column name="TODAY_DATE" value="2022-01-01"></column>
-            <column name="WEATHER_TYPE_ID" value="1"></column>
-            <column name="CITY_ID" value="1"></column>
+            <column name="TEMP" value="20C"/>
+            <column name="TEMP_MIN" value="10C"/>
+            <column name="TEMP_MAX" value="30C"/>
+            <column name="TODAY_DATE" value="2022-01-01"/>
+            <column name="WEATHER_TYPE_ID" value="1"/>
+            <column name="CITY_ID" value="1"/>
         </insert>
     </changeSet>
     <changeSet id="3" author="Fate">
         <insert schemaName="weatherdb" tableName="weather">
-            <column name="TEMP" value="200C"></column>
-            <column name="TEMP_MIN" value="100C"></column>
-            <column name="TEMP_MAX" value="300C"></column>
-            <column name="TODAY_DATE" value="2022-02-02"></column>
-            <column name="WEATHER_TYPE_ID" value="4"></column>
-            <column name="CITY_ID" value="2"></column>
+            <column name="TEMP" value="200C"/>
+            <column name="TEMP_MIN" value="100C"/>
+            <column name="TEMP_MAX" value="300C"/>
+            <column name="TODAY_DATE" value="2022-02-02"/>
+            <column name="WEATHER_TYPE_ID" value="4"/>
+            <column name="CITY_ID" value="2"/>
         </insert>
     </changeSet>
 

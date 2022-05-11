@@ -1,7 +1,5 @@
 package com.example.oddleweatherapi.service;
 
-import com.example.oddleweatherapi.dto.WeatherDTO;
-import com.example.oddleweatherapi.model.City;
 import com.example.oddleweatherapi.repo.WeatherRepository;
 import com.example.oddleweatherapi.model.Weather;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,9 +7,6 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Objects;
-import java.util.Optional;
 
 @Service
 public class WeatherService {
