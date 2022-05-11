@@ -31,7 +31,8 @@ public class WeatherController {
     @GetMapping
     public ResponseEntity<List<WeatherDTO>> getAllWeather() {
         List<Weather> findAll = weatherService.getWeather();
-        return ResponseEntity.ok().body(weatherConverter.entityToDTO(findAll));
+        List<WeatherDTO> weatherDTOs = weatherMapper.ListEntityToListDTO(findAll);
+        return ResponseEntity.ok().body(weatherDTOs);
     }
 
     @GetMapping(path = "{cityId}")
