@@ -1,5 +1,6 @@
 package com.example.oddleweatherapi.exceptions;
 
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -18,6 +19,14 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
             HttpServletRequest req, SQLIntegrityConstraintViolationException ex){
 
         String er = "Operation Failed : " + ex.getMessage();
+        return buildResponseEntity(new ErrorResponse(HttpStatus.BAD_REQUEST, er));
+    }
+
+    @ExceptionHandler(EmptyResultDataAccessException.class)
+    public ResponseEntity<Object> handleEmptyResultDataAccessException(
+            HttpServletRequest req, EmptyResultDataAccessException ex){
+
+        String er = "No Result : " + ex.getMessage();
         return buildResponseEntity(new ErrorResponse(HttpStatus.BAD_REQUEST, er));
     }
 
