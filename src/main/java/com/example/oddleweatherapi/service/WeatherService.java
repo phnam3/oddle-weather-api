@@ -26,7 +26,6 @@ public class WeatherService {
     }
 
     public void addNewWeather(Weather weather) {
-        System.out.println(weather);
         weatherRepository.save(weather);
     }
 
