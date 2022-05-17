@@ -11,8 +11,6 @@ import java.util.*;
 public class OddleWeatherApiApplication {
 
     public static void main(String[] args) {
-
-        //TODO: add logs to all api and methods
         SpringApplication.run(OddleWeatherApiApplication.class, args);
     }
 

@@ -1,5 +1,6 @@
 package com.example.oddleweatherapi.service;
 
+import com.example.oddleweatherapi.exceptions.BadRequestException;
 import com.example.oddleweatherapi.repo.WeatherRepository;
 import com.example.oddleweatherapi.model.Weather;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 public class WeatherService {
@@ -22,7 +24,7 @@ public class WeatherService {
     }
 
     public Weather getOneWeather(Integer id){
-        return weatherRepository.findWeatherByCityId(id).get();
+        return weatherRepository.findWeatherByCityId(id).orElseThrow(() -> new NoSuchElementException("No such weather id in the database"));
     }
 
     public void addNewWeather(Weather weather) {
@@ -35,7 +37,7 @@ public class WeatherService {
 
     @Transactional
     public void updateWeather(Weather weather, Integer id){
-        Weather temp = weatherRepository.findById(id).get();
+        Weather temp = weatherRepository.findById(id).orElseThrow(() -> new NoSuchElementException("No such weather id in the database"));
         temp.setTemp(weather.getTemp());
         temp.setTempMin(weather.getTempMin());
         temp.setTempMax(weather.getTempMax());

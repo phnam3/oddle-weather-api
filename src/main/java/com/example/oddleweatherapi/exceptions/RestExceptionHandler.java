@@ -1,10 +1,13 @@
 package com.example.oddleweatherapi.exceptions;
 
+import liquibase.pro.packaged.E;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,28 +17,34 @@ import java.util.NoSuchElementException;
 @ControllerAdvice
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
-    @ExceptionHandler(SQLIntegrityConstraintViolationException.class)
-    public ResponseEntity<Object> handleSQLIntegrityConstraintViolationException(
-            HttpServletRequest req, SQLIntegrityConstraintViolationException ex){
+    @ExceptionHandler(RuntimeException.class)
+    public ResponseEntity<Object> handleRuntimeException(
+            HttpServletRequest req, RuntimeException ex){
 
-        String er = "Operation Failed : " + ex.getMessage();
-        return buildResponseEntity(new ErrorResponse(HttpStatus.BAD_REQUEST, er));
+        String er = ex.getMessage();
+        return buildResponseEntity(new ErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR, er));
     }
 
-    @ExceptionHandler(EmptyResultDataAccessException.class)
-    public ResponseEntity<Object> handleEmptyResultDataAccessException(
-            HttpServletRequest req, EmptyResultDataAccessException ex){
-
-        String er = "No Result : " + ex.getMessage();
-        return buildResponseEntity(new ErrorResponse(HttpStatus.BAD_REQUEST, er));
-    }
+//    @ExceptionHandler(BadRequestException.class)
+//    public ResponseEntity<Object> handleBadRequestException(
+//            HttpServletRequest req, BadRequestException ex){
+//
+//        String er = ex.getMessage();
+//        return buildResponseEntity(new ErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR, er));
+//    }
 
     @ExceptionHandler(NoSuchElementException.class)
-    public ResponseEntity<Object> handleNoSuchElementException(
-            HttpServletRequest req, NoSuchElementException ex){
+    public ResponseEntity<Object> handleItemNotFoundException(
+            HttpServletRequest req, BadRequestException ex){
 
-        String er = "Element no existed : " + ex.getMessage();
-        return buildResponseEntity(new ErrorResponse(HttpStatus.NOT_FOUND, er));
+        String er = ex.getMessage();
+        return buildResponseEntity(new ErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR, er));
+    }
+
+    @ExceptionHandler(BadRequestException.class)
+    public ResponseEntity<Object> handleSameElementException(HttpServletRequest req, BadRequestException ex){
+        String er = ex.getMessage();
+        return buildResponseEntity(new ErrorResponse(HttpStatus.SEE_OTHER, er));
     }
 
     private ResponseEntity<Object> buildResponseEntity(ErrorResponse errorResponse){

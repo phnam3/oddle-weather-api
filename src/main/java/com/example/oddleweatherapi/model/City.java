@@ -21,9 +21,6 @@ public class City {
     @Column(name="city")
     private String cityName;
 
-    @OneToMany(mappedBy = "city")
-    private List<Weather> weather;
-
     public City(Integer id) {
         this.id = id;
     }

@@ -21,9 +21,6 @@ public class WeatherType {
     @Column(name="weatherType")
     private String weatherTypeName;
 
-    @OneToMany(mappedBy = "weatherType")
-    private List<Weather> weather;
-
     public WeatherType(Integer id) {
         this.id = id;
     }

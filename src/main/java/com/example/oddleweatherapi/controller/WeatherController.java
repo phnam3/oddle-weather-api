@@ -1,12 +1,15 @@
 package com.example.oddleweatherapi.controller;
 
 import com.example.oddleweatherapi.dto.WeatherDTO;
+import com.example.oddleweatherapi.exceptions.BadRequestException;
 import com.example.oddleweatherapi.mapper.WeatherMapper;
 import com.example.oddleweatherapi.model.Weather;
 import com.example.oddleweatherapi.service.WeatherService;
+import liquibase.pro.packaged.R;
 import lombok.extern.slf4j.Slf4j;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -43,10 +46,14 @@ public class WeatherController {
     }
 
     @PostMapping
-    public void registerNewWeather(@RequestBody @Valid WeatherDTO weatherDTO){
+    public ResponseEntity<Object> registerNewWeather(@RequestBody @Valid WeatherDTO weatherDTO){
         log.info("Add New Weather Entity");
+        if(weatherDTO.getId() != null){
+            return new ResponseEntity<Object>("Weather Id should be null", HttpStatus.BAD_REQUEST);
+        }
         Weather weather = weatherMapper.DTOtoEntity(weatherDTO);
         weatherService.addNewWeather(weather);
+        return new ResponseEntity<>("New Weather " + weather.getId() + " Added", HttpStatus.CREATED);
     }
 
     @DeleteMapping(path = "{id}")
