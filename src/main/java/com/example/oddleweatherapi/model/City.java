@@ -1,17 +1,16 @@
 package com.example.oddleweatherapi.model;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
-@Table(name="weather_type")
+@Table(name="city")
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @ToString
 public class City {
     @Id
@@ -20,17 +19,9 @@ public class City {
     private Integer id;
 
     @Column(name="city")
-    private String city;
+    private String cityName;
 
-//    @OneToOne(mappedBy = "city")
-//    private Weather weather;
-
-    public City(Integer id, String city) {
+    public City(Integer id) {
         this.id = id;
-        this.city = city;
-    }
-
-    public City(String city) {
-        this.city = city;
     }
 }

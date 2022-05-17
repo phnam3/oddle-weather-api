@@ -11,7 +11,6 @@ import java.util.*;
 public class OddleWeatherApiApplication {
 
     public static void main(String[] args) {
-
         SpringApplication.run(OddleWeatherApiApplication.class, args);
     }
 

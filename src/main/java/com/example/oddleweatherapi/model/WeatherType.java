@@ -1,17 +1,16 @@
 package com.example.oddleweatherapi.model;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name="weather_type")
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @ToString
 public class WeatherType {
     @Id
@@ -20,14 +19,12 @@ public class WeatherType {
     private Integer id;
 
     @Column(name="weatherType")
-    private String weatherType;
+    private String weatherTypeName;
 
-    public WeatherType(Integer id, String weatherType) {
+    public WeatherType(Integer id) {
         this.id = id;
-        this.weatherType = weatherType;
     }
-
-    public WeatherType(String weatherType) {
-        this.weatherType = weatherType;
+    public WeatherType(String weatherType){
+        this.weatherTypeName = weatherType;
     }
 }
