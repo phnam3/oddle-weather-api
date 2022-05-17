@@ -6,10 +6,12 @@ import com.example.oddleweatherapi.model.Weather;
 import com.example.oddleweatherapi.model.WeatherType;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@Mapper
+@Mapper(componentModel = "spring")
+@Component
 public interface WeatherMapper {
     default City mapCity(WeatherDTO weatherDTO){
         return new City(weatherDTO.getCityId());

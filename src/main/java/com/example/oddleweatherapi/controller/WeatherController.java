@@ -1,13 +1,10 @@
 package com.example.oddleweatherapi.controller;
 
 import com.example.oddleweatherapi.dto.WeatherDTO;
-import com.example.oddleweatherapi.exceptions.BadRequestException;
 import com.example.oddleweatherapi.mapper.WeatherMapper;
 import com.example.oddleweatherapi.model.Weather;
 import com.example.oddleweatherapi.service.WeatherService;
-import liquibase.pro.packaged.R;
 import lombok.extern.slf4j.Slf4j;
-import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,13 +17,13 @@ import java.util.List;
 @RequestMapping(path="api/weather")
 @Slf4j
 public class WeatherController {
-
     private final WeatherService weatherService;
-    private final WeatherMapper weatherMapper = Mappers.getMapper(WeatherMapper.class);
+    private final WeatherMapper weatherMapper;
 
     @Autowired
-    public WeatherController(WeatherService weatherService) {
+    public WeatherController(WeatherService weatherService, WeatherMapper weatherMapper) {
         this.weatherService = weatherService;
+        this.weatherMapper = weatherMapper;
     }
 
     @GetMapping
